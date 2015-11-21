@@ -2,9 +2,11 @@ package com.hbv.sjomlaslangur.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.hbv.sjomlaslangur.domain.Phrase;
+import com.hbv.sjomlaslangur.domain.User;
 import com.hbv.sjomlaslangur.repository.PhraseRepository;
 import com.hbv.sjomlaslangur.repository.search.PhraseSearchRepository;
 import com.hbv.sjomlaslangur.service.PhraseService;
+import com.hbv.sjomlaslangur.service.UserService;
 import com.hbv.sjomlaslangur.web.rest.util.HeaderUtil;
 import com.hbv.sjomlaslangur.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -38,6 +40,10 @@ public class PhraseResource {
 
     private final Logger log = LoggerFactory.getLogger(PhraseResource.class);
 
+
+    @Inject
+    private UserService userService;
+
     @Inject
     private PhraseRepository phraseRepository;
 
@@ -56,7 +62,9 @@ public class PhraseResource {
         if (phrase.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new phrase cannot already have an ID").body(null);
         }
-        // TODO: set user
+
+        User user = userService.getCurrentUser();
+        phrase.setUser(user);
         phrase.setDownvotes(0);
         phrase.setUpvotes(0);
         phrase.setCreatedAt(ZonedDateTime.now());

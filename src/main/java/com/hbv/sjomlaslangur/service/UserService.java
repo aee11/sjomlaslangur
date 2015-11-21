@@ -1,7 +1,6 @@
 package com.hbv.sjomlaslangur.service;
 
 import com.hbv.sjomlaslangur.domain.Authority;
-import com.hbv.sjomlaslangur.domain.PersistentToken;
 import com.hbv.sjomlaslangur.domain.User;
 import com.hbv.sjomlaslangur.repository.AuthorityRepository;
 import com.hbv.sjomlaslangur.repository.PersistentTokenRepository;
@@ -192,5 +191,9 @@ public class UserService {
             userRepository.delete(user);
             userSearchRepository.delete(user);
         }
+    }
+
+    public User getCurrentUser() {
+        return userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).get();
     }
 }
