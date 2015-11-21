@@ -1,0 +1,19 @@
+jhipster-prod-elasticsearch:
+  container_name: sjomlaslangur-prod-elasticsearch
+  image: elasticsearch:1.7.3
+  # volumes:
+  # - ~/volumes/jhipster/sjomlaslangur/prod-elasticsearch/:/usr/share/elasticsearch/data/
+  ports:
+  - "9200:9200"
+  - "9300:9300"
+jhipster-prod-postgresql:
+  container_name: sjomlaslangur-prod-postgresql
+  image: postgres:9.4.5
+  # volumes:
+  # - ~/volumes/jhipster/sjomlaslangur/prod-postgresql/:/var/lib/postgresql/
+  environment:
+  - POSTGRES_USER=sjomlaslangur
+  - POSTGRES_PASSWORD=
+  ports:
+  - "5432:5432"
+

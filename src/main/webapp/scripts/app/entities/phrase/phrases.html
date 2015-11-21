@@ -1,0 +1,73 @@
+<div>
+    <h2>Phrases</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="phrase.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Phrase</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Phrase</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                    <th>CreatedAt</th>
+                    <th>Upvotes</th>
+                    <th>Downvotes</th>
+                    <th>Hotness</th>
+                    <th>user</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="phrase in phrases track by phrase.id">
+                    <td><a ui-sref="phrase.detail({id:phrase.id})">{{phrase.id}}</a></td>
+                    <td>{{phrase.title}}</td>
+                    <td>{{phrase.description}}</td>
+                    <td>{{phrase.example}}</td>
+                    <td>{{phrase.createdAt | date:'medium'}}</td>
+                    <td>{{phrase.upvotes}}</td>
+                    <td>{{phrase.downvotes}}</td>
+                    <td>{{phrase.hotness}}</td>
+                    <td>
+                        {{phrase.user.id}}
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="phrase.detail({id:phrase.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="phrase.edit({id:phrase.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="phrase.delete({id:phrase.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

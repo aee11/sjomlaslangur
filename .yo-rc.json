@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "sjomlaslangur",
+    "packageName": "com.hbv.sjomlaslangur",
+    "packageFolder": "com/hbv/sjomlaslangur",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "useSass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": false,
+    "enableSocialSignIn": true,
+    "rememberMeKey": "f1eb4f191de4d37abd0678aa7f58edef8f956bcf",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}

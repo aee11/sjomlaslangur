@@ -1,0 +1,86 @@
+
+<div>
+    <h2><span>Phrase</span> {{phrase.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span>Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Example</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.example}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>CreatedAt</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.createdAt | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Upvotes</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.upvotes}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Downvotes</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.downvotes}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Hotness</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{phrase.hotness}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>user</span>
+                </td>
+                <td>
+                    {{phrase.user.id}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+</div>
