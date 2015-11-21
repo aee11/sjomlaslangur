@@ -118,16 +118,17 @@
             <div class="description">
               <p class="definition">{{phrase.description}}</p>
               <p class="quote">{{phrase.example}}</p>
-                
+                <span has-authority="ROLE_ADMIN" class="ui bottom left blue label">
+                    <a ui-sref="phrase.edit({id:phrase.id})"><span class="glyphicon glyphicon-pencil"></span>&nbsp;<span>Breyta</span></a></span>
                 <span has-authority="ROLE_ADMIN" class="ui bottom left red label">
-                    <a ui-sref="phrase.delete({id:phrase.id})"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Eyða</span></a><span>
+                    <a ui-sref="phrase.delete({id:phrase.id})"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Eyða</span></a></span>
                 <span class="ui bottom right attached label reportModal"><a>Tilkynna</a></span>
             </div>
           </div>
 
         <div class="ui two massive bottom attached buttons">
-            <div class="ui inverted basic blue icon button upvote ratingBtn"><i class="big inverted blue thumbs up icon upvoteIcon active"></i>{{phrase.upvotes}}</div>
-            <div class="ui inverted basic red icon button downvote ratingBtn"><i class="big inverted red thumbs down icon downvoteIcon active"></i>{{phrase.downvotes}}</div>
+            <div ng-click="upvote(phrase)" class="ui inverted basic blue icon button upvote ratingBtn"><i class="big inverted blue thumbs up icon upvoteIcon active"></i>{{phrase.upvotes}}</div>
+            <div ng-click="downvote(phrase)" class="ui inverted basic red icon button downvote ratingBtn"><i class="big inverted red thumbs down icon downvoteIcon active"></i>{{phrase.downvotes}}</div>
         </div>
       </div>
     </div>

@@ -12,6 +12,8 @@ angular.module('sjomlaslangurApp')
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'upvote': { method:'POST', url: 'api/phrases/:id/upvote', params: { id: '@id'} },
+            'downvote': { method:'POST', url: 'api/phrases/:id/downvote', params: { id: '@id'} }
         });
     });

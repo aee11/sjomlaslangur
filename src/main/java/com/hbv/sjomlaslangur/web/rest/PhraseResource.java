@@ -158,7 +158,7 @@ public class PhraseResource {
     /**
      * POST  /phrases/:id/upvote -> Upvote a  phrase.
      */
-    @RequestMapping(value = "/phrases/:id/upvote",
+    @RequestMapping(value = "/phrases/{id}/upvote",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -167,7 +167,7 @@ public class PhraseResource {
 
         // TODO: Handle same user submitting twice
 
-        Phrase phrase = phraseRepository.getOne(id);
+        Phrase phrase = phraseRepository.findOne(id);
         phrase.setUpvotes(phrase.getUpvotes()+1);
 
         double hotness = PhraseService.calculateHotness(phrase);
@@ -184,17 +184,17 @@ public class PhraseResource {
     /**
      * POST  /phrases/:id/downvote -> Downvote a  phrase.
      */
-    @RequestMapping(value = "/phrases/:id/downvote",
+    @RequestMapping(value = "/phrases/{id}/downvote",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Phrase> downvotePhrase(@PathVariable Long id) throws URISyntaxException {
-        log.debug("REST request to upvote with id", id);
+        log.debug("REST request to downvote with id", id);
 
         // TODO: Handle same user submitting twice
 
-        Phrase phrase = phraseRepository.getOne(id);
-        phrase.setUpvotes(phrase.getDownvotes()+1);
+        Phrase phrase = phraseRepository.findOne(id);
+        phrase.setDownvotes(phrase.getDownvotes()+1);
 
         double hotness = PhraseService.calculateHotness(phrase);
         phrase.setHotness(hotness);

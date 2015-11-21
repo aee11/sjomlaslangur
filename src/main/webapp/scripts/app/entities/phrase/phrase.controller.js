@@ -2,8 +2,6 @@
 
 angular.module('sjomlaslangurApp')
     .controller('PhraseController', function ($scope, $state, $modal, Phrase, PhraseSearch, ParseLinks) {
-        $scope.isAdmin = $state.includes('admin');
-        console.log($scope.isAdmin);
         $scope.phrases = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -54,12 +52,18 @@ angular.module('sjomlaslangurApp')
             };
         };
 
-        $scope.upvote = function () {
-
+        $scope.upvote = function (phrase) {
+            Phrase.upvote({ id: phrase.id }, function() {
+                // Success
+                phrase.upvotes++;
+            });
         };
 
-        $scope.downvote = function () {
-            
+        $scope.downvote = function (phrase) {
+            Phrase.downvote({ id: phrase.id }, function() {
+                // Success
+                phrase.downvotes++;
+            });
         };
 
         $scope.favorite = function () {

@@ -112,6 +112,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.PUT, "/api/phrases/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers(HttpMethod.DELETE, "/api/phrases/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers(HttpMethod.GET, "/api/phrases/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/phrases/**/upvote").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/phrases/**/downvote").permitAll()
             .antMatchers("/api/account/reset_password/init").permitAll()
             .antMatchers("/api/account/reset_password/finish").permitAll()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
