@@ -2,7 +2,8 @@
 
 angular.module('sjomlaslangurApp')
     .controller('PhraseController', function ($scope, $state, $modal, Phrase, PhraseSearch, ParseLinks) {
-      
+        $scope.isAdmin = $state.includes('admin');
+        console.log($scope.isAdmin);
         $scope.phrases = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -51,5 +52,17 @@ angular.module('sjomlaslangurApp')
                 hotness: null,
                 id: null
             };
+        };
+
+        $scope.upvote = function () {
+
+        };
+
+        $scope.downvote = function () {
+            
+        };
+
+        $scope.favorite = function () {
+            
         };
     });

@@ -118,8 +118,10 @@
             <div class="description">
               <p class="definition">{{phrase.description}}</p>
               <p class="quote">{{phrase.example}}</p>
-              
-              <span class="ui bottom right attached label reportModal"><a>Tilkynna</a></span>
+                
+                <span has-authority="ROLE_ADMIN" class="ui bottom left red label">
+                    <a ui-sref="phrase.delete({id:phrase.id})"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Eyða</span></a><span>
+                <span class="ui bottom right attached label reportModal"><a>Tilkynna</a></span>
             </div>
           </div>
 
