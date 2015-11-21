@@ -126,3 +126,6 @@ Desktop.ini
 # Maven Wrapper
 ######################
 !.mvn/wrapper/maven-wrapper.jar
+
+## Development configuration file
+src/main/resources/config/application-dev.yml
