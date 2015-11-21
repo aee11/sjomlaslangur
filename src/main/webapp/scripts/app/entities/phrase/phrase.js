@@ -7,7 +7,7 @@ angular.module('sjomlaslangurApp')
                 parent: 'entity',
                 url: '/phrases',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: [],
                     pageTitle: 'Phrases'
                 },
                 views: {
@@ -23,7 +23,7 @@ angular.module('sjomlaslangurApp')
                 parent: 'entity',
                 url: '/phrase/{id}',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: [],
                     pageTitle: 'Phrase'
                 },
                 views: {
@@ -74,7 +74,7 @@ angular.module('sjomlaslangurApp')
                 parent: 'phrase',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_ADMIN'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
@@ -97,7 +97,7 @@ angular.module('sjomlaslangurApp')
                 parent: 'phrase',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_ADMIN'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
