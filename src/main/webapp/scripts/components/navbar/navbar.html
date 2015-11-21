@@ -1,4 +1,40 @@
-<nav class="navbar navbar-default" role="navigation">
+<div class="ui attached inverted stackable menu" id="navbar">
+    <div class="ui container">
+        <a href="/" id="logoLink" class="item navItem">
+          <div id="imgLogo"></div>
+        </a>
+        <a ui-sref="phrase" class="item navItem active">
+          <i class="large inverted green leaf icon"></i> Nýtt
+        </a>
+        <a ui-sref="phrase" class="item navItem">
+          <i class="large inverted red fire icon"></i> Heitt
+        </a>
+        <a ui-sref="phrase" class="item navItem genRandom"> <!-- href="{{pathFor 'randomPage'}}" -->
+          <i class="large inverted purple random icon"></i> Slembið
+        </a>
+
+
+         
+        
+        <a ng-hide="isAuthenticated()" ui-sref="login" class="right item navItem">
+          <i class="large white spy icon"></i> Innskrá/Nýskrá
+        </a>
+        <div ng-hide="!isAuthenticated()" class="ui dropdown right item navItem" tabindex="-1">
+          <!-- <a ng-click="logout()"> -->
+          {{ account.login }}
+          <!-- </a> --> <i class="dropdown icon"></i>
+          <div class="menu transition hidden" tabindex="-1">
+            <a href="/favorites" class="item"><i class="green star icon"></i>Uppáhalds</a>
+            <a href="/kvergausskvadeulerkvernigramanujan" class="item"><i class="orange bar icon"></i>Um SjomlaSlangur</a>
+            <a ng-click="logout()" class="item"><i class="blue sign out icon"></i>Útskrá</a>
+          </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+<!-- <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -31,7 +67,7 @@
                         <li ui-sref-active="active" ><a ui-sref="phrase" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
                         &#xA0;<span >phrase</span></a></li>
                         <!-- JHipster will add entities to the menu here -->
-                    </ul>
+                    <!-- </ul>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">
@@ -86,4 +122,4 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> -->

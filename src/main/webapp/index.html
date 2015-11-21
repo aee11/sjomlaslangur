@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="bower_components/semantic-ui-icon/icon.css" />
+        <link rel="stylesheet" href="bower_components/semantic-ui-dropdown/dropdown.css" />
+        <link rel="stylesheet" href="bower_components/semantic-ui-transition/transition.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -26,6 +28,7 @@
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
         <div ui-view="navbar" ng-cloak=""></div>
+        <div ui-view="searchbar" ng-cloak=""></div>
         <div class="container">
             <div class="well" ui-view="content"></div>
 
@@ -43,7 +46,6 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>-->
-
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
@@ -64,6 +66,10 @@
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+        <!-- custom js -->
+        <script src="bower_components/semantic-ui-dropdown/dropdown.min.js"></script>
+        <script src="bower_components/semantic-ui-transition/transition.min.js"></script>
+        <!-- end custom js -->
 
 
     <!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->

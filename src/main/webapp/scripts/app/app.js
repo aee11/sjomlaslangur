@@ -19,7 +19,7 @@ angular.module('sjomlaslangurApp', ['LocalStorageModule',
         });
 
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
-            var titleKey = 'sjomlaslangur' ;
+            var titleKey = 'SjomlaSlangur' ;
 
             // Remember previous state unless we've been redirected to login or we've just
             // reset the state memory after logout. If we're redirected to login, our
@@ -64,6 +64,10 @@ angular.module('sjomlaslangurApp', ['LocalStorageModule',
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
+                },
+                'searchbar@': {
+                    templateUrl: 'scripts/components/searchbar/searchbar.html',
+                    controller: 'SearchbarController'
                 }
             },
             resolve: {
