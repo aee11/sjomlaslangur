@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.hbv.sjomlaslangur.domain.Phrase;
 import com.hbv.sjomlaslangur.repository.PhraseRepository;
 import com.hbv.sjomlaslangur.repository.search.PhraseSearchRepository;
+import com.hbv.sjomlaslangur.service.PhraseService;
 import com.hbv.sjomlaslangur.web.rest.util.HeaderUtil;
 import com.hbv.sjomlaslangur.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,6 +56,13 @@ public class PhraseResource {
         if (phrase.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new phrase cannot already have an ID").body(null);
         }
+        // TODO: set user
+        phrase.setDownvotes(0);
+        phrase.setUpvotes(0);
+        phrase.setCreatedAt(ZonedDateTime.now());
+        phrase.setHotness(PhraseService.calculateHotness(phrase));
+
+
         Phrase result = phraseRepository.save(phrase);
         phraseSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/phrases/" + result.getId()))
@@ -136,5 +145,57 @@ public class PhraseResource {
         return StreamSupport
             .stream(phraseSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * POST  /phrases/:id/upvote -> Upvote a  phrase.
+     */
+    @RequestMapping(value = "/phrases/:id/upvote",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Phrase> upvotePhrase(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to upvote with id", id);
+
+        // TODO: Handle same user submitting twice
+
+        Phrase phrase = phraseRepository.getOne(id);
+        phrase.setUpvotes(phrase.getUpvotes()+1);
+
+        double hotness = PhraseService.calculateHotness(phrase);
+        phrase.setHotness(hotness);
+
+        Phrase result = phraseRepository.save(phrase);
+        phraseSearchRepository.save(phrase);
+
+        return ResponseEntity.created(new URI("/api/phrases/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert("phrase", result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * POST  /phrases/:id/downvote -> Downvote a  phrase.
+     */
+    @RequestMapping(value = "/phrases/:id/downvote",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Phrase> downvotePhrase(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to upvote with id", id);
+
+        // TODO: Handle same user submitting twice
+
+        Phrase phrase = phraseRepository.getOne(id);
+        phrase.setUpvotes(phrase.getDownvotes()+1);
+
+        double hotness = PhraseService.calculateHotness(phrase);
+        phrase.setHotness(hotness);
+
+        Phrase result = phraseRepository.save(phrase);
+        phraseSearchRepository.save(phrase);
+
+        return ResponseEntity.created(new URI("/api/phrases/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert("phrase", result.getId().toString()))
+            .body(result);
     }
 }
