@@ -1,8 +1,10 @@
 package com.hbv.sjomlaslangur.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.hbv.sjomlaslangur.domain.Favorite;
 import com.hbv.sjomlaslangur.domain.Phrase;
 import com.hbv.sjomlaslangur.domain.User;
+import com.hbv.sjomlaslangur.repository.FavoriteRepository;
 import com.hbv.sjomlaslangur.repository.PhraseRepository;
 import com.hbv.sjomlaslangur.repository.search.PhraseSearchRepository;
 import com.hbv.sjomlaslangur.service.PhraseService;
@@ -48,6 +50,9 @@ public class PhraseResource {
 
     @Inject
     private PhraseSearchRepository phraseSearchRepository;
+
+    @Inject
+    private FavoriteRepository favoriteRepository;
 
     /**
      * POST  /phrases -> Create a new phrase.
@@ -163,7 +168,7 @@ public class PhraseResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Phrase> upvotePhrase(@PathVariable Long id) throws URISyntaxException {
-        log.debug("REST request to upvote with id", id);
+        log.debug("REST request to upvote with id: ", id);
 
         // TODO: Handle same user submitting twice
 
@@ -189,7 +194,7 @@ public class PhraseResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Phrase> downvotePhrase(@PathVariable Long id) throws URISyntaxException {
-        log.debug("REST request to downvote with id", id);
+        log.debug("REST request to downvote with id: ", id);
 
         // TODO: Handle same user submitting twice
 
@@ -205,5 +210,39 @@ public class PhraseResource {
         return ResponseEntity.created(new URI("/api/phrases/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("phrase", result.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * POST  /phrases/:id/favorite -> favorites a  phrase.
+     */
+    @RequestMapping(value = "/phrases/{id}/favorite",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Phrase> favoritePhrase(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to favorite with id: ", id);
+
+        // If phrase doesn't exist bail
+        Phrase phrase = phraseRepository.findOne(id);
+        if(phrase == null){
+            return ResponseEntity.status(400).body(null);
+        }
+
+        User user = userService.getCurrentUser();
+        long userId = user.getId();
+        Favorite existingFavorite = favoriteRepository.findOne(userId);
+
+        if(existingFavorite == null){
+            Favorite favorite = new Favorite();
+            favorite.setPhraseid(id);
+            favorite.setUserid(userId);
+            favoriteRepository.save(favorite);
+        }else{
+            if(phrase == null){
+                return ResponseEntity.status(400).body(null);
+            }
+        }
+
+        return ResponseEntity.accepted().body(phrase);
     }
 }
