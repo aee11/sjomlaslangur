@@ -230,17 +230,46 @@ public class PhraseResource {
 
         User user = userService.getCurrentUser();
         long userId = user.getId();
-        Favorite existingFavorite = favoriteRepository.findOne(userId);
+        List<Favorite> existingFavoriteList = favoriteRepository.findSpecific(userId, id);
 
-        if(existingFavorite == null){
+        if(existingFavoriteList.size() == 0){
             Favorite favorite = new Favorite();
             favorite.setPhraseid(id);
             favorite.setUserid(userId);
             favoriteRepository.save(favorite);
         }else{
-            if(phrase == null){
-                return ResponseEntity.status(400).body(null);
-            }
+            return ResponseEntity.status(400).body(null);
+        }
+
+        return ResponseEntity.accepted().body(phrase);
+    }
+
+
+
+    /**
+     * POST  /phrases/:id/unfavorite -> unfavorite a  phrase.
+     */
+    @RequestMapping(value = "/phrases/{id}/unfavorite",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Phrase> unfavoritePhrase(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to unfavorite with id: ", id);
+
+        // If phrase doesn't exist bail
+        Phrase phrase = phraseRepository.findOne(id);
+        if(phrase == null){
+            return ResponseEntity.status(400).body(null);
+        }
+
+        User user = userService.getCurrentUser();
+        long userId = user.getId();
+        List<Favorite> existingFavoriteList = favoriteRepository.findSpecific(userId, id);
+
+        if(existingFavoriteList.size() == 0){
+            return ResponseEntity.status(400).body(null);
+        }else{
+            favoriteRepository.delete(existingFavoriteList.get(0));
         }
 
         return ResponseEntity.accepted().body(phrase);
