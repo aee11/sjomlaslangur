@@ -114,6 +114,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/api/phrases/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/phrases/**/upvote").permitAll()
             .antMatchers(HttpMethod.POST, "/api/phrases/**/downvote").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/phrases/**/deupvote").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/phrases/**/dedownvote").permitAll()
             .antMatchers(HttpMethod.GET, "/api/users/favorites").hasAnyAuthority(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)
             .antMatchers(HttpMethod.GET, "/api/users/**/phrases").permitAll()
             .antMatchers(HttpMethod.GET, "/api/users/phrases").hasAnyAuthority(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)
