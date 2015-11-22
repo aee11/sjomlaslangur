@@ -2,8 +2,11 @@ package com.hbv.sjomlaslangur.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.hbv.sjomlaslangur.domain.Authority;
+import com.hbv.sjomlaslangur.domain.Favorite;
+import com.hbv.sjomlaslangur.domain.Phrase;
 import com.hbv.sjomlaslangur.domain.User;
 import com.hbv.sjomlaslangur.repository.AuthorityRepository;
+import com.hbv.sjomlaslangur.repository.FavoriteRepository;
 import com.hbv.sjomlaslangur.repository.UserRepository;
 import com.hbv.sjomlaslangur.repository.search.UserSearchRepository;
 import com.hbv.sjomlaslangur.security.AuthoritiesConstants;
@@ -74,6 +77,9 @@ public class UserResource {
 
     @Inject
     private UserSearchRepository userSearchRepository;
+
+    @Inject
+    private FavoriteRepository favoriteRepository;
 
     /**
      * POST  /users -> Create a new user.
@@ -155,9 +161,9 @@ public class UserResource {
     public ResponseEntity<ManagedUserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return userService.getUserWithAuthoritiesByLogin(login)
-                .map(ManagedUserDTO::new)
-                .map(managedUserDTO -> new ResponseEntity<>(managedUserDTO, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            .map(ManagedUserDTO::new)
+            .map(managedUserDTO -> new ResponseEntity<>(managedUserDTO, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -172,5 +178,37 @@ public class UserResource {
         return StreamSupport
             .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+
+
+    /**
+     * GET  /users/favorites -> Get the phrases favorited by the current user.
+     */
+    @RequestMapping(value = "/users/favorites",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Phrase> getUserFavorites() {
+        Long userId = userService.getCurrentUser().getId();
+
+        List<Phrase> favoritePhrases = favoriteRepository.findUserFavorites(userId);
+
+        return favoritePhrases;
+    }
+
+
+    /**
+     * GET  /users/:id/favorites -> Get the phrases favorited by the "id" user.
+     */
+    @RequestMapping(value = "/users/favorites",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Phrase> getUserFavorites(@PathVariable Long userId) {
+
+        List<Phrase> favoritePhrases = favoriteRepository.findUserFavorites(userId);
+
+        return favoritePhrases;
     }
 }
