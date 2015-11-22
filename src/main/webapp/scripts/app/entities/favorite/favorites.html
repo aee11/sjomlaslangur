@@ -65,3 +65,50 @@
         </table>
     </div>
 </div>
+
+
+<div class="ui stackable grid wordContainer">
+    <div ng-repeat="phrase in phrases track by phrase.id" class="ten wide column word">
+        <div class="ui fluid card wordCard piled segment">
+            <div class="content">
+                <h1 class="ui blue center aligned header wordName">{{phrase.title}}</h1>
+
+                <div class="ui top right attached label socialMediaLabel">
+                    <button class="ui basic circular icon button getLink"
+                            data-content="Afrita yfir í klippiborð"
+                            ui-sref="phrase.detail({id:phrase.id})"
+                            data-clipboard-text="www.sjomlaslangur.com/random/QJqTnsw8PiYvvWZzb">
+                        <i class="linkify icon"></i>
+                    </button>
+                    <div class="share-buttons">
+                        <a href="https://twitter.com" class="ui circular twitter icon basic teal button shareit-twitter-colors tw-share"><i class="twitter icon"></i></a>
+                    </div>
+                </div>
+
+                <div class="ui top left attached label favoriteLabel">
+                    <span class="favoriteMe star">
+                        <i ng-click="favorite(phrase)" ng-class="isFavorited ? 'inverted orange' : ''" class="big star icon"></i>
+                    </span>
+                </div>
+                <div class="meta">
+                    <span class="right floated time">{{phrase.createdAt}}</span>
+                    <span class="username"><a href="/users/einsii">{{phrase.user.firstName}}</a></span>
+                </div>
+                <div class="description">
+                    <p class="definition">{{phrase.description}}</p>
+                    <p class="quote">{{phrase.example}}</p>
+                    <span has-authority="ROLE_ADMIN" class="ui bottom left blue label">
+                    <a ui-sref="phrase.edit({id:phrase.id})"><span class="glyphicon glyphicon-pencil"></span>&nbsp;<span>Breyta</span></a></span>
+                    <span has-authority="ROLE_ADMIN" class="ui bottom left red label">
+                    <a ui-sref="phrase.delete({id:phrase.id})"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Eyða</span></a></span>
+                    <span class="ui bottom right attached label reportModal"><a>Tilkynna</a></span>
+                </div>
+            </div>
+
+            <div class="ui two massive bottom attached buttons">
+                <div ng-click="upvote(phrase)" class="ui inverted basic blue icon button upvote ratingBtn"><i class="big inverted blue thumbs up icon upvoteIcon active"></i>{{phrase.upvotes}}</div>
+                <div ng-click="downvote(phrase)" class="ui inverted basic red icon button downvote ratingBtn"><i class="big inverted red thumbs down icon downvoteIcon active"></i>{{phrase.downvotes}}</div>
+            </div>
+        </div>
+    </div>
+</div>

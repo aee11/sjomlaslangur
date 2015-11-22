@@ -67,7 +67,25 @@ angular.module('sjomlaslangurApp')
             });
         };
 
-        $scope.favorite = function () {
-            
+        $scope.favorite = function (phrase) {
+            if (phrase.isFavorited) {
+                $scope.unfavorite(phrase);
+                return;
+            }
+            Phrase.favorite({ id: phrase.id }, function() {
+                // Success
+                phrase.isFavorited = true;
+            });
+        };
+
+        $scope.unfavorite = function (phrase) {
+            if (!phrase.isFavorited) {
+                $scope.favorite(phrase);
+                return;
+            }
+            Phrase.unfavorite({ id: phrase.id }, function() {
+                // Success
+                phrase.isFavorited = false;
+            });
         };
     });
