@@ -67,33 +67,36 @@ angular.module('sjomlaslangurApp')
         }
 
         $scope.upvote = function (phrase) {
-            if (LocalStorageUtil.isInLocalStorageArray('upvotes', phrase.id)
-                || LocalStorageUtil.isInLocalStorageArray('downvotes', phrase.id)) {
+            if (LocalStorageUtil.isInLocalStorageArray('upvotes', phrase.id)) {
                 return;
-            } else {
-                Phrase.upvote({ id: phrase.id }, function() {
-                    // Success
-                    phrase.upvotes++;
-                    LocalStorageUtil.addToLocalStorageArray('upvotes', phrase.id);
-                });
+            } else if (LocalStorageUtil.isInLocalStorageArray('downvotes', phrase.id)) {
+                Phrase.dedownvote({ id: phrase.id });
+                LocalStorageUtil.removeFromLocalStorageArray('downvotes', phrase.id);
+                phrase.downvotes--;
             }
+            Phrase.upvote({ id: phrase.id }, function() {
+                // Success
+                phrase.upvotes++;
+                LocalStorageUtil.addToLocalStorageArray('upvotes', phrase.id);
+            });
         };
 
         $scope.downvote = function (phrase) {
-            if (LocalStorageUtil.isInLocalStorageArray('upvotes', phrase.id)
-                || LocalStorageUtil.isInLocalStorageArray('downvotes', phrase.id)) {
+            if (LocalStorageUtil.isInLocalStorageArray('downvotes', phrase.id)) {
                 return;
-            } else {
-                Phrase.downvote({ id: phrase.id }, function() {
-                    // Success
-                    phrase.downvotes++;
-                    LocalStorageUtil.addToLocalStorageArray('downvotes', phrase.id);
-                });
+            } else if (LocalStorageUtil.isInLocalStorageArray('upvotes', phrase.id)) {
+                Phrase.deupvote({ id: phrase.id });
+                LocalStorageUtil.removeFromLocalStorageArray('upvotes', phrase.id);
+                phrase.upvotes--;
             }
+            Phrase.downvote({ id: phrase.id }, function() {
+                // Success
+                phrase.downvotes++;
+                LocalStorageUtil.addToLocalStorageArray('downvotes', phrase.id);
+            });
         };
 
         $scope.favorite = function (phrase) {
-            console.log(phrase);
             if (phrase.isFavorited) {
                 $scope.unfavorite(phrase);
                 return;
@@ -114,4 +117,5 @@ angular.module('sjomlaslangurApp')
                 phrase.isFavorited = false;
             });
         };
+    });
     });

@@ -18,7 +18,6 @@ angular.module('sjomlaslangurApp')
                 },
                 resolve: {
                     phrases: ['User', function(User) {
-                        console.log('!')
                         return User.getFavorites();
                     }]
                 }
