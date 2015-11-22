@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span>Report</span> {{report.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span>CreatedAt</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{report.createdAt | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{report.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Body</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{report.body}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>phraseId</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="phrase.detail({id:report.phraseId.id})">{{report.phraseId.id}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+</div>

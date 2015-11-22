@@ -1,0 +1,65 @@
+<div>
+    <h2>Reports</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="report.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Report</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Report</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CreatedAt</th>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>phraseId</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="report in reports track by report.id">
+                    <td><a ui-sref="report.detail({id:report.id})">{{report.id}}</a></td>
+                    <td>{{report.createdAt | date:'medium'}}</td>
+                    <td>{{report.title}}</td>
+                    <td>{{report.body}}</td>
+                    <td>
+                        <a ui-sref="phrase.detail({id:report.phraseId.id})">{{report.phraseId.id}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="report.detail({id:report.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="report.edit({id:report.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="report.delete({id:report.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
