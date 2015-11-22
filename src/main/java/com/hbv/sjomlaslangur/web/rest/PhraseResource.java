@@ -26,8 +26,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -158,6 +157,36 @@ public class PhraseResource {
         return StreamSupport
             .stream(phraseSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * SEARCH  /_search2/phrases/:query -> search for the phrase corresponding
+     * to the query.
+     */
+    @RequestMapping(value = "/_search2/phrases/{query}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Phrase> searchPhrases2(@PathVariable String query) {
+
+        Set<Phrase> resultPhrases = new HashSet<>();
+
+        Iterable<Phrase> subresult;
+
+        ArrayList<String> edits = PhraseService.edits(query);
+        edits.add(query);
+        for (String s: edits) {
+            subresult = phraseSearchRepository.search(queryStringQuery(s));
+            for(Phrase p: subresult){
+                resultPhrases.add(p);
+            }
+        }
+        List<Phrase> resultList = new ArrayList<Phrase>(resultPhrases.size());
+        for(Phrase p: resultPhrases){
+            resultList.add(p);
+        }
+
+        return resultList;
     }
 
     /**

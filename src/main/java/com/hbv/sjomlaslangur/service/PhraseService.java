@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -16,7 +17,7 @@ public class PhraseService {
 
     private final Logger log = LoggerFactory.getLogger(PhraseService.class);
 
-    // returns the new hotess for the given phrase
+    // returns the new hotNess for the given phrase
     public static double calculateHotness(Phrase phrase) {
         // See http://amix.dk/blog/post/19588
         Integer ups = phrase.getUpvotes();
@@ -28,6 +29,15 @@ public class PhraseService {
         Long seconds = epochMilli / 1000L - 1134028003L;
         double hotness = sign * order + (seconds / 45000.0);
         return hotness;
+    }
+
+    public static ArrayList<String> edits(String word) {
+        ArrayList<String> result = new ArrayList<String>();
+        for(int i=0; i < word.length(); ++i) result.add(word.substring(0, i) + word.substring(i+1));
+        for(int i=0; i < word.length()-1; ++i) result.add(word.substring(0, i) + word.substring(i+1, i+2) + word.substring(i, i+1) + word.substring(i+2));
+        for(int i=0; i < word.length(); ++i) for(char c='a'; c <= 'z'; ++c) result.add(word.substring(0, i) + String.valueOf(c) + word.substring(i+1));
+        for(int i=0; i <= word.length(); ++i) for(char c='a'; c <= 'z'; ++c) result.add(word.substring(0, i) + String.valueOf(c) + word.substring(i));
+        return result;
     }
 
 }
