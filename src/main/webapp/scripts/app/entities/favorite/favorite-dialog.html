@@ -1,0 +1,70 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myFavoriteLabel">Create or edit a Favorite</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="favorite.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_userid">Userid</label>
+            <input type="number" class="form-control" name="userid" id="field_userid"
+                    ng-model="favorite.userid"
+                    required />
+            <div ng-show="editForm.userid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.userid.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.userid.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_phraseid">Phraseid</label>
+            <input type="number" class="form-control" name="phraseid" id="field_phraseid"
+                    ng-model="favorite.phraseid"
+                    required />
+            <div ng-show="editForm.phraseid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.phraseid.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.phraseid.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_userthatfavorited">userthatfavorited</label>
+            <select class="form-control" id="field_userthatfavorited" name="userthatfavorited" ng-model="favorite.userthatfavorited" ng-options="user as user.id for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_phrasethatisfavorited">phrasethatisfavorited</label>
+            <select class="form-control" id="field_phrasethatisfavorited" name="phrasethatisfavorited" ng-model="favorite.phrasethatisfavorited" ng-options="phrase as phrase.id for phrase in phrases track by phrase.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

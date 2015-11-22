@@ -1,0 +1,67 @@
+<div>
+    <h2>Favorites</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="favorite.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Favorite</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Favorite</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Userid</th>
+                    <th>Phraseid</th>
+                    <th>userthatfavorited</th>
+                    <th>phrasethatisfavorited</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="favorite in favorites track by favorite.id">
+                    <td><a ui-sref="favorite.detail({id:favorite.id})">{{favorite.id}}</a></td>
+                    <td>{{favorite.userid}}</td>
+                    <td>{{favorite.phraseid}}</td>
+                    <td>
+                        {{favorite.userthatfavorited.id}}
+                    </td>
+                    <td>
+                        <a ui-sref="phrase.detail({id:favorite.phrasethatisfavorited.id})">{{favorite.phrasethatisfavorited.id}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="favorite.detail({id:favorite.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="favorite.edit({id:favorite.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="favorite.delete({id:favorite.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
