@@ -232,4 +232,18 @@ public class UserResource {
     }
 
 
+    /**
+     * GET  /users/phrases -> Get the phrases favorited by the current user.
+     */
+    @RequestMapping(value = "/users/phrases",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Phrase> getCurrentUserPhrases() {
+        Long userId = userService.getCurrentUser().getId();
+
+        List<Phrase> authoredPhrases = phraseRepository.findUserPhrases(userId);
+
+        return authoredPhrases;
+    }
 }
