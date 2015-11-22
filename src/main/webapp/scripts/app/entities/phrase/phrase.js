@@ -68,7 +68,6 @@ angular.module('sjomlaslangurApp')
                 },
                 resolve: {
                     phrases: ['$stateParams', 'PhraseSearch', function($stateParams, PhraseSearch) {
-                        console.log($stateParams);
                         return PhraseSearch.query({query: $stateParams.query});
                     }]
                 }

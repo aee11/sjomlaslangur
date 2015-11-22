@@ -1,18 +1,20 @@
 'use strict';
 
 angular.module('sjomlaslangurApp')
-    .controller('PhraseListController', function ($scope, $state, $modal, phrases, Phrase, PhraseSearch, ParseLinks, LocalStorageUtil, User) {
+    .controller('PhraseListController', function ($scope, $state, $modal, phrases, Phrase, PhraseSearch, ParseLinks, LocalStorageUtil, User, Principal) {
         $scope.phrases = phrases;
 
         $scope.markFavorites = function() {
-            User.getFavorites(function(favorites) {
-                var favoriteIds = favorites.map(function (phrase) { return phrase.id });
-                for (var i = 0; i < $scope.phrases.length; i++) {
-                    if (favoriteIds.indexOf($scope.phrases[i].id) !== -1) {
-                        $scope.phrases[i].isFavorited = true;
-                    }
-                };
-            });
+            if (Principal.isAuthenticated()) {
+                User.getFavorites(function(favorites) {
+                    var favoriteIds = favorites.map(function (phrase) { return phrase.id });
+                    for (var i = 0; i < $scope.phrases.length; i++) {
+                        if (favoriteIds.indexOf($scope.phrases[i].id) !== -1) {
+                            $scope.phrases[i].isFavorited = true;
+                        }
+                    };
+                });
+            }
         }
 
         $scope.markFavorites();
