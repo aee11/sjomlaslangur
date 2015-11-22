@@ -72,6 +72,26 @@ angular.module('sjomlaslangurApp')
                     }]
                 }
             })
+            .state('phrase.byuser', {
+                parent: 'entity',
+                url: '/users/{id}/phrases',
+                data: {
+                    authorities: [],
+                    pageTitle: 'Slangur hjá sjomla'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/phrase/phrases.html',
+                        controller: 'PhraseListController'
+                    }
+                },
+                resolve: {
+                    phrases: ['$stateParams', 'User', function($stateParams, User) {
+                        console.log($stateParams);
+                        return User.getPhrases({id : $stateParams.id});
+                    }]
+                }
+            })
             .state('phrase.new', {
                 parent: 'phrase',
                 url: '/new',

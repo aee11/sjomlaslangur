@@ -12,6 +12,7 @@ angular.module('sjomlaslangurApp')
                     }
                 },
                 'update': { method:'PUT' },
-                'getFavorites': { method:'GET', isArray: true, url: 'api/users/favorites' }
+                'getFavorites': { method:'GET', isArray: true, url: 'api/users/favorites' },
+                'getPhrases': { method:'GET', isArray: true, url: 'api/users/:id/phrases', params: { id: '@id'} }
             });
         });
