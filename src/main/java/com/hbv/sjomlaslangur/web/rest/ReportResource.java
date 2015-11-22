@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,6 +55,7 @@ public class ReportResource {
         if (report.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new report cannot already have an ID").body(null);
         }
+        report.setCreatedAt(ZonedDateTime.now());
         Report result = reportRepository.save(report);
         reportSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/reports/" + result.getId()))

@@ -170,7 +170,6 @@ public class PhraseResource {
     public ResponseEntity<Phrase> upvotePhrase(@PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to upvote with id: ", id);
 
-        // TODO: Handle same user submitting twice
 
         Phrase phrase = phraseRepository.findOne(id);
         phrase.setUpvotes(phrase.getUpvotes()+1);
@@ -196,7 +195,6 @@ public class PhraseResource {
     public ResponseEntity<Phrase> deupvotePhrase(@PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to deupvote with id: ", id);
 
-        // TODO: Handle same user submitting twice
 
         Phrase phrase = phraseRepository.findOne(id);
         phrase.setUpvotes(phrase.getUpvotes()-1);
@@ -222,7 +220,6 @@ public class PhraseResource {
     public ResponseEntity<Phrase> downvotePhrase(@PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to downvote with id: ", id);
 
-        // TODO: Handle same user submitting twice
 
         Phrase phrase = phraseRepository.findOne(id);
         phrase.setDownvotes(phrase.getDownvotes()+1);
@@ -248,7 +245,6 @@ public class PhraseResource {
     public ResponseEntity<Phrase> dedownvotePhrase(@PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to dedownvote with id: ", id);
 
-        // TODO: Handle same user submitting twice
 
         Phrase phrase = phraseRepository.findOne(id);
         phrase.setDownvotes(phrase.getDownvotes()-1);
