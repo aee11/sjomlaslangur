@@ -123,7 +123,7 @@
                 </div>
                 <div class="meta">
                     <span class="right floated time">{{phrase.createdAt}}</span>
-                    <span class="username"><a ng-href="/users/{{phrase.user.id}}/phrases">{{phrase.user.login}}</a></span>
+                    <span class="username"><a ui-sref="phrase.byuser({id:phrase.user.id})">{{phrase.user.login}}</a></span>
                 </div>
                 <div class="description">
                     <p class="definition">{{phrase.description}}</p>
