@@ -62,13 +62,13 @@ angular.module('sjomlaslangurApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/phrase/phrase-detail.html',
-                        controller: 'PhraseDetailController'
+                        templateUrl: 'scripts/app/entities/phrase/phrases.html',
+                        controller: 'PhraseListController'
                     }
                 },
                 resolve: {
-                    entity: ['$stateParams', 'Phrase', function($stateParams, Phrase) {
-                        return Phrase.get({id : $stateParams.id});
+                    phrases: ['$stateParams', 'Phrase', function($stateParams, Phrase) {
+                        return [Phrase.get({id : $stateParams.id})];
                     }]
                 }
             })
@@ -87,7 +87,6 @@ angular.module('sjomlaslangurApp')
                 },
                 resolve: {
                     phrases: ['$stateParams', 'User', function($stateParams, User) {
-                        console.log($stateParams);
                         return User.getPhrases({id : $stateParams.id});
                     }]
                 }

@@ -13,10 +13,14 @@ angular.module('sjomlaslangurApp')
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/entities/phrase/phrases.html',
-                        controller: 'FavoriteController'
+                        controller: 'PhraseListController'
                     }
                 },
                 resolve: {
+                    phrases: ['User', function(User) {
+                        console.log('!')
+                        return User.getFavorites();
+                    }]
                 }
             })
             .state('favorite.detail', {

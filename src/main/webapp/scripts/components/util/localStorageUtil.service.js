@@ -22,5 +22,16 @@ angular.module('sjomlaslangurApp')
                 localStorage.setItem(arrayName, item);
             }
         };
+      this.removeFromLocalStorageArray = function(arrayName, item) {
+            var array = localStorage.getItem(arrayName);
+            if (array) {
+                var idArray = array.split(",");
+                var itemIdx = idArray.indexOf(item+'');
+                if (itemIdx !== -1) {
+                    idArray.splice(itemIdx, 1);
+                }
+                localStorage.setItem(arrayName, idArray);
+            }
+        };
     });
             
