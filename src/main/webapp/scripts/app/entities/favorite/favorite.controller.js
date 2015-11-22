@@ -1,27 +1,17 @@
 'use strict';
 
 angular.module('sjomlaslangurApp')
-    .controller('FavoriteController', function ($scope, $state, $modal, Favorite, FavoriteSearch, ParseLinks) {
-      
-        $scope.favorites = [];
-        $scope.page = 0;
-        $scope.loadAll = function() {
-            Favorite.query({page: $scope.page, size: 20}, function(result, headers) {
-                $scope.links = ParseLinks.parse(headers('link'));
-                for (var i = 0; i < result.length; i++) {
-                    $scope.favorites.push(result[i]);
-                }
+    .controller('FavoriteController', function ($scope, $state, $modal, Favorite, FavoriteSearch, ParseLinks, User) {
+        $scope.phrases = [];
+        $scope.loadAll = function() {    
+            User.getFavorites(function(favorites) {
+                for (var i = 0; i < favorites.length; i++) {
+                    favorites[i].isFavorited = true;
+                    $scope.phrases.push(favorites[i]);
+                };
             });
         };
-        $scope.reset = function() {
-            $scope.page = 0;
-            $scope.favorites = [];
-            $scope.loadAll();
-        };
-        $scope.loadPage = function(page) {
-            $scope.page = page;
-            $scope.loadAll();
-        };
+
         $scope.loadAll();
 
 

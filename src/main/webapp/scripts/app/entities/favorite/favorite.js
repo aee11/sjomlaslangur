@@ -12,7 +12,7 @@ angular.module('sjomlaslangurApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/favorite/favorites.html',
+                        templateUrl: 'scripts/app/entities/phrase/phrases.html',
                         controller: 'FavoriteController'
                     }
                 },
