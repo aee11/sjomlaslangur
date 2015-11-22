@@ -53,6 +53,26 @@ angular.module('sjomlaslangurApp')
                 resolve: {
                 }
             })
+            .state('phrase.searchresults', {
+                parent: 'entity',
+                url: '/phrases/search/{query}',
+                data: {
+                    authorities: [],
+                    pageTitle: 'Niðurstöður leitarinnar'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/phrase/phrases.html',
+                        controller: 'PhraseListController'
+                    }
+                },
+                resolve: {
+                    phrases: ['$stateParams', 'PhraseSearch', function($stateParams, PhraseSearch) {
+                        console.log($stateParams);
+                        return PhraseSearch.query({query: $stateParams.query});
+                    }]
+                }
+            })
             .state('phrase.detail', {
                 parent: 'entity',
                 url: '/phrase/{id}',
