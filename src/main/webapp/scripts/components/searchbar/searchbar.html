@@ -4,7 +4,7 @@
       <div class="ui action huge input fluid field">
           <!-- {{> esInput index="slang" placeholder="Leitaðu að hvaða slangri sem er, Sjomli!" convertnumber=true }} -->
            <input type="text" placeholder="Leitaðu að hvaða slangri sem er, Sjomli!" ng-model="searchQuery" class="searchInput" name="searchString"> 
-           <button class="ui button" ng-click="searchFor(searchQuery)">Search</button>
+           <button class="ui button" ui-sref="phrase.searchresults({query:searchQuery})">Search</button>
           <!--{{> EasySearch.Input index=slangIndex }} -->
           <!--{{> esInput index="players" id="search" placeholder="Search players..." convertnumber=true }} -->
       </div>
