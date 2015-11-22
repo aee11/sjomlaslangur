@@ -580,10 +580,10 @@
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost/sjomlaslangur</url>
+                    <url>jdbc:postgresql://localhost/sjomlaslangurdb</url>
                     <defaultSchemaName></defaultSchemaName>
-                    <username>sjomlaslangur</username>
-                    <password></password>
+                    <username>arnar</username>
+                    <password>satan</password>
                     <referenceUrl>hibernate:spring:com.hbv.sjomlaslangur.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
