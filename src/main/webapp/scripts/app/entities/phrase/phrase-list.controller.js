@@ -54,7 +54,6 @@ angular.module('sjomlaslangurApp')
         $scope.favorite = function (phrase) {
             if (phrase.isFavorited) {
                 $scope.unfavorite(phrase);
-                phrase.isFavorited = false;
                 return;
             }
             Phrase.favorite({ id: phrase.id }, function() {
