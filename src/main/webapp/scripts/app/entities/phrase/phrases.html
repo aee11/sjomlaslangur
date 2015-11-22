@@ -118,7 +118,7 @@
 
                 <div class="ui top left attached label favoriteLabel">
                     <span class="favoriteMe star">
-                        <i ng-click="favorite(phrase)" ng-class="isFavorited ? 'inverted orange' : ''" class="big star icon"></i>
+                        <i ng-click="favorite(phrase)" ng-class="phrase.isFavorited ? 'inverted orange active' : ''" class="big star icon"></i>
                     </span>
                 </div>
                 <div class="meta">
@@ -137,7 +137,7 @@
             </div>
 
             <div class="ui two massive bottom attached buttons">
-                <div ng-click="upvote(phrase)" class="ui inverted basic blue icon button upvote ratingBtn"><i class="big inverted blue thumbs up icon upvoteIcon active"></i>{{phrase.upvotes}}</div>
+                <div ng-click="upvote(phrase)" ng-class="isVoted('upvotes', phrase.id) ? 'active' : ''" class="ui inverted basic blue icon button upvote ratingBtn"><i class="big inverted blue thumbs up icon upvoteIcon active"></i>{{phrase.upvotes}}</div>
                 <div ng-click="downvote(phrase)" class="ui inverted basic red icon button downvote ratingBtn"><i class="big inverted red thumbs down icon downvoteIcon active"></i>{{phrase.downvotes}}</div>
             </div>
         </div>

@@ -11,6 +11,7 @@ angular.module('sjomlaslangurApp')
                         return data;
                     }
                 },
-                'update': { method:'PUT' }
+                'update': { method:'PUT' },
+                'getFavorites': { method:'GET', isArray: true, url: 'api/users/favorites' }
             });
         });

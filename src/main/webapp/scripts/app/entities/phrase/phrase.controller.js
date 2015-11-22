@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sjomlaslangurApp')
-    .controller('PhraseController', function ($scope, $state, $modal, Phrase, PhraseSearch, ParseLinks) {
+    .controller('PhraseController', function ($scope, $state, $modal, Phrase, PhraseSearch, ParseLinks, LocalStorageUtil, User) {
         var sortedBy = $state.current.data.sortedBy || 'createdAt';
         $scope.phrases = [];
         $scope.page = 0;
@@ -11,7 +11,16 @@ angular.module('sjomlaslangurApp')
                 for (var i = 0; i < result.length; i++) {
                     $scope.phrases.push(result[i]);
                 }
+                User.getFavorites(function(favorites) {
+                    var favoriteIds = favorites.map(function (phrase) { return phrase.id });
+                    for (var i = 0; i < $scope.phrases.length; i++) {
+                        if (favoriteIds.indexOf($scope.phrases[i].id) !== -1) {
+                            $scope.phrases[i].isFavorited = true;
+                        }
+                    };
+                });
             });
+
         };
         $scope.reset = function() {
             $scope.page = 0;
@@ -53,21 +62,38 @@ angular.module('sjomlaslangurApp')
             };
         };
 
+        $scope.isVoted = function(type, phraseId) {
+            return LocalStorageUtil.isInLocalStorageArray(type, phraseId)
+        }
+
         $scope.upvote = function (phrase) {
-            Phrase.upvote({ id: phrase.id }, function() {
-                // Success
-                phrase.upvotes++;
-            });
+            if (LocalStorageUtil.isInLocalStorageArray('upvotes', phrase.id)
+                || LocalStorageUtil.isInLocalStorageArray('downvotes', phrase.id)) {
+                return;
+            } else {
+                Phrase.upvote({ id: phrase.id }, function() {
+                    // Success
+                    phrase.upvotes++;
+                    LocalStorageUtil.addToLocalStorageArray('upvotes', phrase.id);
+                });
+            }
         };
 
         $scope.downvote = function (phrase) {
-            Phrase.downvote({ id: phrase.id }, function() {
-                // Success
-                phrase.downvotes++;
-            });
+            if (LocalStorageUtil.isInLocalStorageArray('upvotes', phrase.id)
+                || LocalStorageUtil.isInLocalStorageArray('downvotes', phrase.id)) {
+                return;
+            } else {
+                Phrase.downvote({ id: phrase.id }, function() {
+                    // Success
+                    phrase.downvotes++;
+                    LocalStorageUtil.addToLocalStorageArray('downvotes', phrase.id);
+                });
+            }
         };
 
         $scope.favorite = function (phrase) {
+            console.log(phrase);
             if (phrase.isFavorited) {
                 $scope.unfavorite(phrase);
                 return;
