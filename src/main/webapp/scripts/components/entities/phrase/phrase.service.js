@@ -14,6 +14,8 @@ angular.module('sjomlaslangurApp')
             },
             'update': { method:'PUT' },
             'upvote': { method:'POST', url: 'api/phrases/:id/upvote', params: { id: '@id'} },
-            'downvote': { method:'POST', url: 'api/phrases/:id/downvote', params: { id: '@id'} }
+            'downvote': { method:'POST', url: 'api/phrases/:id/downvote', params: { id: '@id'} },
+            'favorite': { method:'POST', url: 'api/phrases/:id/favorite', params: { id: '@id'} },
+            'unfavorite': { method:'POST', url: 'api/phrases/:id/unfavorite', params: { id: '@id'} }
         });
     });

@@ -24,7 +24,7 @@
           {{ account.login }}
           <!-- </a> --> <i class="dropdown icon"></i>
           <div class="menu transition hidden" tabindex="-1">
-            <a href="/favorites" class="item"><i class="green star icon"></i>Uppáhalds</a>
+            <a ui-sref="favorite" ui-sref-active="active" class="item"><i class="green star icon"></i>Uppáhalds</a>
             <a href="/kvergausskvadeulerkvernigramanujan" class="item"><i class="orange bar icon"></i>Um SjomlaSlangur</a>
             <a ng-click="logout()" class="item"><i class="blue sign out icon"></i>Útskrá</a>
           </div>

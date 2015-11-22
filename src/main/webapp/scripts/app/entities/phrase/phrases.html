@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <h2>Phrases!</h2>
     <jh-alert></jh-alert>
     <div class="container">
@@ -19,8 +19,8 @@
             </div>
         </div>
     </div>
-
-    <div class="table-responsive">
+    
+  <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -70,14 +70,39 @@
             </tbody>
         </table>
     </div>
-</div>
+</div> -->
 
 
-<div class="ui stackable grid wordContainer">
+<div class="ui stackable grid wordContainer" infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+    <div class="ten wide column word addBottomMargin">
+    </div>
+    <div class="five wide column word addBottomMargin">
+        <div class="ui fluid card wordCard raised segment">
+          <a class="image" ui-sref="phrase.new">
+            <img src="/assets/images/matthew.png">
+          </a>
+          <div class="content noPadding">
+            <div class="meta noPadding">
+
+            <a class="ui fluid animated vertical orange icon button" ui-sref="phrase.new" id="addWordBtn">
+                        <div class="visible content">
+                            <i class="icon huge write"></i> NÝTT
+                        </div>
+                    <div class="hidden content">
+                            <div class="addbtnFont">Bæta við</div>
+                    </div>
+                 </a>
+
+            </div>
+        </div>
+
+      </div>
+    </div>
+
     <div ng-repeat="phrase in phrases track by phrase.id" class="ten wide column word">
         <div class="ui fluid card wordCard piled segment">
             <div class="content">
-                <h1 class="ui blue center aligned header wordName">{{phrase.title}}</h1>
+                <h1 class="ui blue center aligned header wordName"><a ui-sref="phrase.detail({id:phrase.id})">{{phrase.title}}</a></h1>
 
                 <div class="ui top right attached label socialMediaLabel">
                     <button class="ui basic circular icon button getLink"
@@ -93,12 +118,12 @@
 
                 <div class="ui top left attached label favoriteLabel">
                     <span class="favoriteMe star">
-                        <i class="big star icon"></i>
+                        <i ng-click="favorite(phrase)" ng-class="isFavorited ? 'inverted orange' : ''" class="big star icon"></i>
                     </span>
                 </div>
                 <div class="meta">
                     <span class="right floated time">{{phrase.createdAt}}</span>
-                    <span class="username"><a href="/users/einsii">{{phrase.user.firstName}}</a></span>
+                    <span class="username"><a ng-href="/users/{{phrase.user.id}}/phrases">{{phrase.user.login}}</a></span>
                 </div>
                 <div class="description">
                     <p class="definition">{{phrase.description}}</p>
