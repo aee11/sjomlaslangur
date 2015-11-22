@@ -1,5 +1,51 @@
+<div id="main">
+    <div class="ui container addSlangContainer margin-top-bottom">
 
-<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="ui container center aligned  submitHeader">
+            <h2 class="ui dividing header">
+              <i class="idea icon"></i>
+              <div class="content">
+                  Nýtt sjomlaslangur
+                <!-- <div class="sub header">Partymörgæsin er spennt!</div>  -->
+              </div>
+            </h2>
+
+        </div>
+
+        <form class="ui huge form" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+            <div class="field">
+                <label>Titill</label>
+                <input type="text" name="title" id="field_title"
+                    ng-model="phrase.title"
+                    required placeholder="Orðatiltæki/slanguryrði">
+            </div>
+            <div class="field">
+                <label>Skilgreining</label>
+                <textarea rows="5" name="description" id="field_description"
+                    ng-model="phrase.description"
+                    required placeholder="Skilgreining á slanguryðinu.."></textarea>
+          </div>
+          <div class="field">
+            <label>Dæmi um notkun</label>
+            <textarea rows="3" name="example" id="field_example"
+                    ng-model="phrase.example"
+                    required  placeholder="Dæmi um hverning slangrið er notað í talmáli.."></textarea>
+          </div>
+          <!-- <div class="ui huge centered center aligned green submit button">Bæta við</div> -->
+          <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="ui huge centered center aligned green submit button">
+            
+            <i class="plus icon"></i>&nbsp;<span>Bæta við</span>
+          </button>
+          <div class="ui error message"></div>
+            
+        </form>
+
+    </div>
+</div>
+
+
+<!-- <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -100,3 +146,4 @@
         </button>
     </div>
 </form>
+ -->

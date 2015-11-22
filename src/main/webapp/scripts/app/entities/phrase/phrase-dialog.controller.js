@@ -24,6 +24,7 @@ angular.module('sjomlaslangurApp').controller('PhraseDialogController',
 
         $scope.save = function () {
             $scope.isSaving = true;
+            $scope.phrase.createdAt = new Date();
             if ($scope.phrase.id != null) {
                 Phrase.update($scope.phrase, onSaveSuccess, onSaveError);
             } else {
