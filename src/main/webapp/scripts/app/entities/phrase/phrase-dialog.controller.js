@@ -3,7 +3,7 @@
 angular.module('sjomlaslangurApp').controller('PhraseDialogController',
     ['$scope', '$stateParams', '$modalInstance', 'entity', 'Phrase', 'User',
         function($scope, $stateParams, $modalInstance, entity, Phrase, User) {
-
+        
         $scope.phrase = entity;
         $scope.users = User.query();
         $scope.load = function(id) {

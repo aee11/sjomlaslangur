@@ -2,10 +2,11 @@
 
 angular.module('sjomlaslangurApp')
     .controller('PhraseController', function ($scope, $state, $modal, Phrase, PhraseSearch, ParseLinks) {
+        var sortedBy = $state.current.data.sortedBy || 'createdAt';
         $scope.phrases = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-            Phrase.query({page: $scope.page, size: 20}, function(result, headers) {
+            Phrase.query({page: $scope.page, size: 20, sort: sortedBy+',desc'}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
                     $scope.phrases.push(result[i]);

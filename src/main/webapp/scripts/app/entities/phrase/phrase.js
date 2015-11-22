@@ -19,6 +19,40 @@ angular.module('sjomlaslangurApp')
                 resolve: {
                 }
             })
+            .state('phrase.newest', {
+                parent: 'entity',
+                url: '/phrases/newest',
+                data: {
+                    authorities: [],
+                    pageTitle: 'Nýjasta slangrið',
+                    sortedBy: 'createdAt'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/phrase/phrases.html',
+                        controller: 'PhraseController'
+                    }
+                },
+                resolve: {
+                }
+            })
+            .state('phrase.hottest', {
+                parent: 'entity',
+                url: '/phrases/hottest',
+                data: {
+                    authorities: [],
+                    pageTitle: 'Heitasta slangrið',
+                    sortedBy: 'hotness'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/phrase/phrases.html',
+                        controller: 'PhraseController'
+                    }
+                },
+                resolve: {
+                }
+            })
             .state('phrase.detail', {
                 parent: 'entity',
                 url: '/phrase/{id}',

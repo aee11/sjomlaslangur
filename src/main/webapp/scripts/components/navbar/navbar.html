@@ -3,13 +3,13 @@
         <a href="/" id="logoLink" class="item navItem">
           <div id="imgLogo"></div>
         </a>
-        <a ui-sref="phrase" class="item navItem active">
+        <a ui-sref="phrase.newest" ui-sref-active="active" class="item navItem">
           <i class="large inverted green leaf icon"></i> Nýtt
         </a>
-        <a ui-sref="phrase" class="item navItem">
+        <a ui-sref="phrase.hottest" ui-sref-active="active" class="item navItem">
           <i class="large inverted red fire icon"></i> Heitt
         </a>
-        <a ui-sref="phrase" class="item navItem genRandom"> <!-- href="{{pathFor 'randomPage'}}" -->
+        <a ui-sref="phrase" ui-sref-active="active" class="item navItem genRandom"> <!-- href="{{pathFor 'randomPage'}}" -->
           <i class="large inverted purple random icon"></i> Slembið
         </a>
 

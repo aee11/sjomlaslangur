@@ -40,7 +40,6 @@ public class PhraseResource {
 
     private final Logger log = LoggerFactory.getLogger(PhraseResource.class);
 
-
     @Inject
     private UserService userService;
 
@@ -106,6 +105,7 @@ public class PhraseResource {
     @Timed
     public ResponseEntity<List<Phrase>> getAllPhrases(Pageable pageable)
         throws URISyntaxException {
+        System.out.println(pageable.getSort());
         Page<Phrase> page = phraseRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/phrases");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('sjomlaslangurApp')
-    .controller('SearchController', function ($scope) {
+    .controller('SearchbarController', function ($scope) {
 
     });
