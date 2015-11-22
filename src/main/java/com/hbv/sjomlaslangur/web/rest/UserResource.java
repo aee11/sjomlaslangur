@@ -7,6 +7,7 @@ import com.hbv.sjomlaslangur.domain.Phrase;
 import com.hbv.sjomlaslangur.domain.User;
 import com.hbv.sjomlaslangur.repository.AuthorityRepository;
 import com.hbv.sjomlaslangur.repository.FavoriteRepository;
+import com.hbv.sjomlaslangur.repository.PhraseRepository;
 import com.hbv.sjomlaslangur.repository.UserRepository;
 import com.hbv.sjomlaslangur.repository.search.UserSearchRepository;
 import com.hbv.sjomlaslangur.security.AuthoritiesConstants;
@@ -80,6 +81,9 @@ public class UserResource {
 
     @Inject
     private FavoriteRepository favoriteRepository;
+
+    @Inject
+    private PhraseRepository phraseRepository;
 
     /**
      * POST  /users -> Create a new user.
@@ -199,7 +203,7 @@ public class UserResource {
 
 
     /**
-     * GET  /users/:userId/favorites -> Get the phrases favorited by the "id" user.
+     * GET  /users/:userId/favorites -> Get the phrases favorited by the "userId" user.
      */
     @RequestMapping(value = "/users/{userId}/favorites",
         method = RequestMethod.GET,
@@ -211,4 +215,21 @@ public class UserResource {
 
         return favoritePhrases;
     }
+
+
+    /**
+     * GET  /users/:userId/phrases -> Get the phrases created by the "userId" user.
+     */
+    @RequestMapping(value = "/users/{userId}/phrases",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Phrase> getUserIdPhrases(@PathVariable Long userId) {
+
+        List<Phrase> authoredPhrases = phraseRepository.findUserPhrases(userId);
+
+        return authoredPhrases;
+    }
+
+
 }

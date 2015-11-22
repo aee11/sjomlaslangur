@@ -3,6 +3,7 @@ package com.hbv.sjomlaslangur.repository;
 import com.hbv.sjomlaslangur.domain.Phrase;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface PhraseRepository extends JpaRepository<Phrase,Long> {
     List<Phrase> findByUserIsCurrentUser();
 
 
+    @Query("select p from Phrase p where p.user.id = :userId")
+    List<Phrase> findUserPhrases(@Param("userId") Long userId);
 }
