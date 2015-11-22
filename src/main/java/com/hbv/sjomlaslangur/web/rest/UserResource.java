@@ -189,7 +189,7 @@ public class UserResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Phrase> getUserFavorites() {
+    public List<Phrase> getCurrentUserFavorites() {
         Long userId = userService.getCurrentUser().getId();
 
         List<Phrase> favoritePhrases = favoriteRepository.findUserFavorites(userId);
@@ -199,13 +199,13 @@ public class UserResource {
 
 
     /**
-     * GET  /users/:id/favorites -> Get the phrases favorited by the "id" user.
+     * GET  /users/:userId/favorites -> Get the phrases favorited by the "id" user.
      */
-    @RequestMapping(value = "/users/favorites",
+    @RequestMapping(value = "/users/{userId}/favorites",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Phrase> getUserFavorites(@PathVariable Long userId) {
+    public List<Phrase> getUserFavoritesWithId(@PathVariable Long userId) {
 
         List<Phrase> favoritePhrases = favoriteRepository.findUserFavorites(userId);
 
